@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Micro Importer - Jibli Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        nav {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 40px;
+            border-radius: 10px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .lang-option {
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+
+        .lang-option:hover {
+            transform: translateY(-2px);
+            background: #e9ecef;
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+        }
+
+        .lang-option.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .flag {
+            width: 22px;
+            height: 16px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 300px;
+            height: 300px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .slogan {
+            font-size: 1.8rem;
+            color: #3498db;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .services {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            margin: 60px 0;
+            scrollbar-width: thin;
+            scrollbar-color: #3498db #f5f7fa;
+        }
+
+        .services::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .services::-webkit-scrollbar-track {
+            background: #f5f7fa;
+            border-radius: 4px;
+        }
+
+        .services::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+
+        .service-card {
+            flex: 0 0 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .service-desc {
+            color: #7f8c8d;
+            line-height: 1.7;
+        }
+
+        .process {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 60px auto;
+            position: relative;
+        }
+
+        .steps:before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #bdc3c7;
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            width: 20%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .step-desc {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border-radius: 15px;
+            margin: 60px 0;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-desc {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #3498db;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .subscribe-section {
+            margin: 80px 0;
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 80px auto;
+        }
+
+        .subscribe-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .subscribe-desc {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subscribe-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .subscribe-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #bdc3c7;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .subscribe-input:focus {
+            border-color: #3498db;
+        }
+
+        .subscribe-button {
+            padding: 15px 30px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .subscribe-button:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .success-message, .error-message {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease-in;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #3498db;
+            display: none;
+        }
+
+        .loading:after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        [dir="rtl"] {
+            direction: rtl;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+
+        [dir="rtl"] .section-title:after {
+            right: 50%;
+            left: auto;
+            transform: translateX(50%);
+        }
+
+        @media (max-width: 768px) {
+            .logo { width: 150px; height: 150px; }
+            .tagline { font-size: 1.2rem; }
+            .slogan { font-size: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            .nav-menu { gap: 20px; }
+            .steps { flex-direction: column; gap: 30px; }
+            .steps:before { display: none; }
+            .step { width: 100%; display: flex; align-items: center; gap: 20px; text-align: left; }
+            .form-row { flex-direction: column; }
+            .subscribe-input { width: 100%; }
+            .services { gap: 15px; }
+            .service-card { flex: 0 0 280px; padding: 25px 20px; }
+            .lang-option span { display: none; }
+            .lang-option { padding: 8px; }
+            .nav-container { padding: 0 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-container">
+        <ul class="nav-menu">
+            <li><a href="#home" class="active" data-en="Home" data-fr="Accueil" data-ar="الرئيسية">Home</a></li>
+            <li><a href="#services" data-en="Services" data-fr="Services" data-ar="الخدمات">Services</a></li>
+            <li><a href="#about" data-en="About" data-fr="À Propos" data-ar="من نحن">About</a></li>
+            <li><a href="#contact" data-en="Contact" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
+        </ul>
+        <div class="lang-switch">
+            <div class="lang-option en" data-lang="en">
+                <img src="uk.svg" alt="English" class="flag">
+                <span>English</span>
+            </div>
+            <div class="lang-option fr" data-lang="fr">
+                <img src="fr.svg" alt="Français" class="flag">
+                <span>Français</span>
+            </div>
+            <div class="lang-option ar" data-lang="ar">
+                <img src="algeria.svg" alt="العربية" class="flag">
+                <span>العربية</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container" id="mainContent">
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.svg" alt="Logo Micro Importer">
+            </div>
+            <div class="tagline" data-en="Customized logistics solutions" data-fr="Solutions logistiques adaptées" data-ar="حلول لوجستية مخصصة">
+                Customized logistics solutions
+            </div>
+            <div class="slogan">Jibli Service</div>
+        </div>
+    </header>
+
+    <div class="hero" id="home">
+        <h2 data-en="Revolutionizing Small-Scale Import" data-fr="Révolutionnons l'importation à petite échelle" data-ar="نحو استيراد صغير النطاق">
+            Revolutionizing Small-Scale Import
+        </h2>
+        <p style="font-size: 1.2rem; max-width: 800px; color: #7f8c8d;">
+            <span data-en="We help entrepreneurs import unique products from around the world with personalized support." data-fr="Nous aidons les entrepreneurs à importer des produits uniques du monde entier avec un accompagnement personnalisé." data-ar="نساعد رواد الأعمال على استيراد منتجات فريدة من العالم بدعم شخصي">
+                We help entrepreneurs import unique products from around the world with personalized support.
+            </span>
+        </p>
+    </div>
+
+    <!-- Services -->
+    <div class="services" id="services">
+        <div class="service-card">
+            <div class="service-icon">🚚</div>
+            <h3 class="service-title" data-en="Adapted Logistics" data-fr="Logistique Adaptée" data-ar="لوجيستيك مخصص">Adapted Logistics</h3>
+            <p class="service-desc" data-en="Customized solutions for your volumes and deadlines." data-fr="Solutions personnalisées selon vos volumes et délais." data-ar="حلول مخصصة حسب حجمك وجدولك الزمني">Customized solutions for your volumes and deadlines.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🌍</div>
+            <h3 class="service-title" data-en="Global Sourcing" data-fr="Approvisionnement Mondial" data-ar="الاستيراد العالمي">Global Sourcing</h3>
+            <p class="service-desc" data-en="Access rare products from Asia, Europe and more." data-fr="Accès à des produits rares depuis l'Asie, l'Europe et plus." data-ar="الوصول إلى منتجات نادرة من آسيا وأوروبا">Access rare products from Asia, Europe and more.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">⚡</div>
+            <h3 class="service-title" data-en="Fast Delivery" data-fr="Livraison Rapide" data-ar="توصيل سريع">Fast Delivery</h3>
+            <p class="service-desc" data-en="Reduce delays with our logistics partners." data-fr="Réduction des délais grâce à nos partenaires logistiques." data-ar="قلل من التأخير مع شركائنا اللوجيستيين">Reduce delays with our logistics partners.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">💼</div>
+            <h3 class="service-title" data-en="Jibli Service" data-fr="Service Jibli" data-ar="خدمة جيбли">Jibli Service</h3>
+            <p class="service-desc" data-en="Personalized follow-up from A to Z by a dedicated expert." data-fr="Suivi personnalisé de A à Z par un expert dédié." data-ar="متابعة شخصية من البداية للنهاية من قبل خبير مخصص">Personalized follow-up from A to Z by a dedicated expert.</p>
+        </div>
+    </div>
+
+    <!-- Process -->
+    <div class="process" id="about">
+        <h2 class="section-title" data-en="Our Process" data-fr="Notre Processus" data-ar="طريقة عملنا">Our Process</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 class="step-title" data-en="Consultation" data-fr="Consultation" data-ar="استشارة">Consultation</h3>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 class="step-title" data-en="Sourcing" data-fr="Sourcing" data-ar="الشراء">Sourcing</h3>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 class="step-title" data-en="Logistics" data-fr="Logistique" data-ar="اللوجيستيك">Logistics</h3>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3 class="step-title" data-en="Shipping" data-fr="Transport" data-ar="الشحن">Shipping</h3>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3 class="step-title" data-en="Delivery" data-fr="Livraison" data-ar="التوصيل">Delivery</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="subscribe-section" id="contact">
+        <h2 class="subscribe-title" data-en="Contact Us" data-fr="Contactez-nous" data-ar="اتصل بنا">Contact Us</h2>
+        <p class="subscribe-desc" data-en="Fill the form to discuss your needs." data-fr="Remplissez le formulaire pour discuter de vos besoins." data-ar="املأ النموذج لمناقشة احتياجاتك">
+            Fill the form to discuss your needs.
+        </p>
+        <form class="subscribe-form" id="contactForm">
+            <input type="text" class="subscribe-input" name="name" placeholder="Name" required>
+            <input type="tel" class="subscribe-input" name="phone" placeholder="Phone" required>
+            <input type="email" class="subscribe-input" name="email" placeholder="Email" required>
+            <input type="text" class="subscribe-input" name="address" placeholder="Address" required>
+            <input type="text" class="subscribe-input" name="specialty" placeholder="Specialty" required>
+            <input type="text" class="subscribe-input" name="budget" placeholder="Budget" required>
+            <input type="text" class="subscribe-input" name="training" placeholder="Desired training" required>
+            <button type="submit" class="subscribe-button" data-en="Send" data-fr="Envoyer" data-ar="إرسال">Send</button>
+        </form>
+        <div class="loading" id="loading">Sending message</div>
+        <div class="success-message" id="successMessage">✅ Message sent! We will respond within 24 hours.</div>
+        <div class="error-message" id="errorMessage">❌ Failed to send. Please try again.</div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        <h2 class="cta-title" data-en="Start Your Journey" data-fr="Commencez Votre Aventure" data-ar="ابدأ رحلتك">Start Your Journey</h2>
+        <p class="cta-desc" data-en="Join hundreds of entrepreneurs discovering the power of micro-import." data-fr="Rejoignez des centaines d'entrepreneurs qui découvrent la puissance de la micro-importation." data-ar="انضم إلى مئات رواد الأعمال الذين يستوردون بذكاء">
+            Join hundreds of entrepreneurs discovering the power of micro-import.
+        </p>
+        <a href="#contact" class="btn" data-en="Get Started" data-fr="Commencer Maintenant" data-ar="ابدأ الآن">Get Started</a>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Micro Importer. All rights reserved.</p>
+    <p data-en="Revolutionizing small-scale import with customized logistics." data-fr="Révolutionnons l'importation à petite échelle avec des solutions logistiques adaptées." data-ar="نحو استيراد صغير النطاق بحلول لوجيستية مخصصة">Revolutionizing small-scale import with customized logistics.</p>
+</footer>
+
+<!-- WhatsApp Button -->
+<a href="https://wa.me/971582939027?text=Bonjour,%20je%20souhaite%20discuter%20de%20mes%20besoins%20de%20micro-importation"
+   target="_blank"
+   style="position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px;
+          border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
+   <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Scripts -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS
+    (function() {
+        emailjs.init("aBVyyB-UhdXfdF3Aq"); // Your public key
+    })();
+
+    // Language management
+    const langOptions = document.querySelectorAll('.lang-option');
+    let currentLang = 'en';
+
+    function updateLanguage() {
+        document.querySelectorAll('[data-en]').forEach(el => {
+            if (currentLang === 'ar') {
+                el.textContent = el.getAttribute('data-ar') || el.textContent;
+                document.documentElement.dir = 'rtl';
+            } else if (currentLang === 'fr') {
+                el.textContent = el.getAttribute('data-fr') || el.textContent;
+                document.documentElement.dir = 'ltr';
+            } else {
+                el.textContent = el.getAttribute('data-en') || el.textContent;
+                document.documentElement.dir = 'ltr';
+            }
+        });
+
+        // Update placeholder texts
+        if (currentLang === 'ar') {
+            document.querySelector('input[name="name"]').placeholder = "الاسم";
+            document.querySelector('input[name="phone"]').placeholder = "الهاتف";
+            document.querySelector('input[name="email"]').placeholder = "البريد الإلكتروني";
+            document.querySelector('input[name="address"]').placeholder = "العنوان";
+            document.querySelector('input[name="specialty"]').placeholder = "التخصص";
+            document.querySelector('input[name="budget"]').placeholder = "الميزانية";
+            document.querySelector('input[name="training"]').placeholder = "التدريب المطلوب";
+        } else if (currentLang === 'fr') {
+            document.querySelector('input[name="name"]').placeholder = "Nom";
+            document.querySelector('input[name="phone"]').placeholder = "Téléphone";
+            document.querySelector('input[name="email"]').placeholder = "Email";
+            document.querySelector('input[name="address"]').placeholder = "Adresse";
+            document.querySelector('input[name="specialty"]').placeholder = "Spécialité";
+            document.querySelector('input[name="budget"]').placeholder = "Budget";
+            document.querySelector('input[name="training"]').placeholder = "Formation souhaitée";
+        } else {
+            document.querySelector('input[name="name"]').placeholder = "Name";
+            document.querySelector('input[name="phone"]').placeholder = "Phone";
+            document.querySelector('input[name="email"]').placeholder = "Email";
+            document.querySelector('input[name="address"]').placeholder = "Address";
+            document.querySelector('input[name="specialty"]').placeholder = "Specialty";
+            document.querySelector('input[name="budget"]').placeholder = "Budget";
+            document.querySelector('input[name="training"]').placeholder = "Desired training";
+        }
+
+        // Update WhatsApp link text
+        const waLink = document.querySelector('a[href*="wa.me"]');
+        let waText = 'Hello%2C%20I%20would%20like%20to%20discuss%20my%20micro-import%20needs';
+        if (currentLang === 'fr') {
+            waText = 'Bonjour%2C%20je%20souhaite%20discuter%20de%20mes%20besoins%20de%20micro-importation';
+        } else if (currentLang === 'ar') {
+            waText = 'مرحباً%2C%20أرغب%20في%20مناقشة%20احتياجاتي%20لاستيراد%20صغير';
+        }
+        waLink.href = 'https://wa.me/971582939027?text=' + waText;
+
+        // Update active language button
+        langOptions.forEach(option => {
+            if (option.dataset.lang === currentLang) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+    }
+
+    // Set initial language
+    updateLanguage();
+
+    // Add event listeners to language options
+    langOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            currentLang = option.dataset.lang;
+            updateLanguage();
+        });
+    });
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = this;
+
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'none';
+
+        const formData = new FormData(form);
+        const templateParams = Object.fromEntries(formData);
+
+        emailjs.send('service_3m0rsy6', 'template_jfesjms', templateParams)
+            .then(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                form.reset();
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 5000);
+            }, (error) => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+                console.error('EmailJS Error:', error);
+            });
+    });
+
+    // Smooth navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
