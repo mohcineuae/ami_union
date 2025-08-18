@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Micro Importateur - Plateforme Jibli</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        nav {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 40px;
+            border-radius: 10px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .slogan {
+            font-size: 1.8rem;
+            color: #3498db;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .services, .dashboard-cards {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            margin: 60px 0;
+            scrollbar-width: thin;
+            scrollbar-color: #3498db #f5f7fa;
+        }
+
+        .services::-webkit-scrollbar, .dashboard-cards::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .services::-webkit-scrollbar-track, .dashboard-cards::-webkit-scrollbar-track {
+            background: #f5f7fa;
+            border-radius: 4px;
+        }
+
+        .services::-webkit-scrollbar-thumb, .dashboard-cards::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 4px;
+        }
+
+        .service-card, .dashboard-card {
+            flex: 0 0 300px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover, .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+
+        .service-icon, .dashboard-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .service-title, .dashboard-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .service-desc, .dashboard-desc {
+            color: #7f8c8d;
+            line-height: 1.7;
+        }
+
+        .process {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 60px auto;
+            position: relative;
+        }
+
+        .steps:before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #bdc3c7;
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            width: 20%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .step-desc {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border-radius: 15px;
+            margin: 60px 0;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-desc {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #3498db;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .subscribe-section {
+            margin: 80px 0;
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 80px auto;
+        }
+
+        .subscribe-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .subscribe-desc {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subscribe-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .subscribe-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #bdc3c7;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .subscribe-input:focus {
+            border-color: #3498db;
+        }
+
+        .subscribe-button {
+            padding: 15px 30px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .subscribe-button:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .success-message, .error-message {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease-in;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #3498db;
+        }
+
+        .loading:after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 60px 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .logo { width: 80px10; height: 80px; }
+            .tagline { font-size: 1.2rem; }
+            .slogan { font-size: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            .nav-menu { gap: 20px; }
+            .steps { flex-direction: column; gap: 30px; }
+            .steps:before { display: none; }
+            .step { width: 100%; flex-direction: row; text-align: left; }
+            .form-row { flex-direction: column; }
+            .subscribe-input { width: 100%; }
+            .services, .dashboard-cards { gap: 15px; }
+            .service-card, .dashboard-card { flex: 0 0 280px; padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-container">
+        <ul class="nav-menu">
+            <li><a href="#home" class="active">Accueil</a></li>
+            <li><a href="#about">À Propos</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" id="loginToggle">Connexion</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Auth Modal -->
+<div id="authModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:200; justify-content:center; align-items:center;">
+    <div style="background:white; padding:30px; border-radius:15px; width:90%; max-width:400px; text-align:center;">
+        <h3 id="modalTitle">Connexion</h3>
+        <form id="authForm">
+            <input type="email" class="subscribe-input" name="email" placeholder="Email" required style="margin-bottom:15px;">
+            <input type="password" class="subscribe-input" name="password" placeholder="Mot de passe" required style="margin-bottom:15px;">
+            <button type="submit" class="subscribe-button" id="authBtn">Se connecter</button>
+        </form>
+        <p style="margin-top:15px;">
+            <a href="#" id="toggleAuth" style="color:#3498db;">Créer un compte</a>
+        </p>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container" id="mainContent">
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="logo.svg" alt="Logo Micro Importateur">
+            </div>
+            <div class="tagline">Nous offrons des solutions logistiques adaptées</div>
+            <div class="slogan">Service jibli</div>
+        </div>
+    </header>
+
+    <div class="hero" id="home">
+        <h2>Révolutionnons l'importation à petite échelle</h2>
+        <p style="font-size: 1.2rem; max-width: 800px; color: #7f8c8d;">
+            Nous sommes spécialisés dans les services de micro-importation, aidant les petites entreprises et les entrepreneurs 
+            à importer des produits uniques du monde entier grâce à des solutions logistiques sur mesure et efficaces.
+        </p>
+    </div>
+
+    <!-- Services -->
+    <div class="services" id="services">
+        <div class="service-card">
+            <div class="service-icon">🚚</div>
+            <h3 class="service-title">Logistique Adaptée</h3>
+            <p class="service-desc">Solutions personnalisées selon vos volumes et délais.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🌍</div>
+            <h3 class="service-title">Approvisionnement Mondial</h3>
+            <p class="service-desc">Accès à des produits rares depuis l'Asie, l'Europe et plus.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">⚡</div>
+            <h3 class="service-title">Livraison Rapide</h3>
+            <p class="service-desc">Réduction des délais grâce à nos partenaires logistiques.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">💼</div>
+            <h3 class="service-title">Service Jibli</h3>
+            <p class="service-desc">Suivi personnalisé de A à Z par un expert dédié.</p>
+        </div>
+    </div>
+
+    <!-- Process -->
+    <div class="process" id="about">
+        <h2 class="section-title">Notre Processus</h2>
+        <div class="steps">
+            <div class="step"><div class="step-number">1</div><h3 class="step-title">Consultation</h3></div>
+            <div class="step"><div class="step-number">2</div><h3 class="step-title">Sourcing</h3></div>
+            <div class="step"><div class="step-number">3</div><h3 class="step-title">Logistique</h3></div>
+            <div class="step"><div class="step-number">4</div><h3 class="step-title">Transport</h3></div>
+            <div class="step"><div class="step-number">5</div><h3 class="step-title">Livraison</h3></div>
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="subscribe-section" id="contact">
+        <h2 class="subscribe-title">Contactez-nous</h2>
+        <p class="subscribe-desc">Remplissez le formulaire ci-dessous pour discuter de vos besoins.</p>
+        <form class="subscribe-form" id="contactForm">
+            <input type="text" class="subscribe-input" name="name" placeholder="Nom" required>
+            <input type="tel" class="subscribe-input" name="phone" placeholder="Téléphone" required>
+            <input type="email" class="subscribe-input" name="email" placeholder="Email" required>
+            <input type="text" class="subscribe-input" name="address" placeholder="Adresse" required>
+            <input type="text" class="subscribe-input" name="specialty" placeholder="Spécialité" required>
+            <input type="text" class="subscribe-input" name="budget" placeholder="Budget" required>
+            <input type="text" class="subscribe-input" name="training" placeholder="Formation souhaitée" required>
+            <button type="submit" class="subscribe-button">Envoyer</button>
+        </form>
+        <div class="loading" id="loading" style="display:none;">Envoi en cours</div>
+        <div class="success-message" id="successMessage">✅ Message envoyé ! Nous vous répondrons sous 24h.</div>
+        <div class="error-message" id="errorMessage">❌ Échec de l'envoi. Réessayez.</div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        <h2 class="cta-title">Commencez Votre Aventure</h2>
+        <p class="cta-desc">Rejoignez des centaines d'entrepreneurs qui ont découvert la puissance de la micro-importation.</p>
+        <a href="#contact" class="btn">Commencer Maintenant</a>
+    </div>
+</div>
+
+<!-- Dashboard (caché par défaut) -->
+<div class="dashboard" id="dashboard">
+    <div class="dashboard-header">
+        <h2>Bienvenue sur votre tableau de bord</h2>
+        <p id="userEmail"></p>
+        <button class="logout-btn" id="logoutBtn">Déconnexion</button>
+    </div>
+    <div class="dashboard-cards">
+        <div class="dashboard-card">
+            <div class="dashboard-icon">📦</div>
+            <h3 class="dashboard-title">Mes Commandes</h3>
+            <p class="dashboard-desc">Suivez vos importations en temps réel.</p>
+        </div>
+        <div class="dashboard-card">
+            <div class="dashboard-icon">💬</div>
+            <h3 class="dashboard-title">Support</h3>
+            <p class="dashboard-desc">Contactez votre expert Jibli.</p>
+        </div>
+        <div class="dashboard-card">
+            <div class="dashboard-icon">🎓</div>
+            <h3 class="dashboard-title">Formations</h3>
+            <p class="dashboard-desc">Accédez à nos modules de formation.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Micro Importateur. Tous droits réservés.</p>
+    <p>Révolutionnons l'importation à petite échelle.</p>
+</footer>
+
+<!-- Scripts -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    // Initialiser EmailJS (remplacez par vos clés)
+    (function() {
+        emailjs.init("aBVyyB-UhdXfdF3Aq"); // ← VOTRE CLEF EMAILJS
+    })();
+
+    // Gestion de la modale d'authentification
+    const modal = document.getElementById('authModal');
+    const loginToggle = document.getElementById('loginToggle');
+    const toggleAuth = document.getElementById('toggleAuth');
+    const authForm = document.getElementById('authForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const authBtn = document.getElementById('authBtn');
+
+    let isLogin = true;
+
+    loginToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'flex';
+    });
+
+    toggleAuth.addEventListener('click', (e) => {
+        e.preventDefault();
+        isLogin = !isLogin;
+        modalTitle.innerText = isLogin ? 'Connexion' : 'Créer un compte';
+        authBtn.innerText = isLogin ? 'Se connecter' : 'S\'inscrire';
+    });
+
+    authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = authForm.email.value;
+        const password = authForm.password.value;
+
+        // Simuler une auth réussie
+        if (email && password.length >= 6) {
+            localStorage.setItem('userEmail', email);
+            showDashboard(email);
+            modal.style.display = 'none';
+            authForm.reset();
+        } else {
+            alert('Email ou mot de passe invalide.');
+        }
+    });
+
+    function showDashboard(email) {
+        document.getElementById('mainContent').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('userEmail').innerText = `Connecté en tant que : ${email}`;
+    }
+
+    function showMain() {
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('dashboard').style.display = 'none';
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem('userEmail');
+        showMain();
+    });
+
+    // Vérifier si utilisateur connecté
+    window.onload = () => {
+        const savedEmail = localStorage.getItem('userEmail');
+        if (savedEmail) {
+            showDashboard(savedEmail);
+        }
+    };
+
+    // Formulaire de contact avec EmailJS
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = this;
+
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('errorMessage').style.display = 'none';
+
+        const formData = new FormData(form);
+        const templateParams = Object.fromEntries(formData);
+
+        // Remplacez 'YOUR_SERVICE_ID' et 'YOUR_TEMPLATE_ID'
+        emailjs.send('service_3m0rsy6', 'template_jfesjms', templateParams)
+            .then(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                form.reset();
+            }, (error) => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+                console.error('Erreur EmailJS:', error);
+            });
+    });
+
+    // Navigation fluide
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            if (this.getAttribute('href') !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
