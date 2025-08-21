@@ -229,7 +229,7 @@
             display: inline-block;
         }
 
-        .section-title:after {
+        .section-title::after {
             content: '';
             position: absolute;
             bottom: -10px;
@@ -249,7 +249,7 @@
             position: relative;
         }
 
-        .steps:before {
+        .steps::before {
             content: '';
             position: absolute;
             top: 40px;
@@ -433,7 +433,7 @@
             display: none;
         }
 
-        .loading:after {
+        .loading::after {
             content: '.';
             animation: dots 1.5s steps(5, end) infinite;
         }
@@ -455,7 +455,7 @@
             font-family: 'Segoe UI', 'Arial', sans-serif;
         }
 
-        [dir="rtl"] .section-title:after {
+        [dir="rtl"] .section-title::after {
             right: 50%;
             left: auto;
             transform: translateX(50%);
@@ -467,16 +467,42 @@
             .slogan { font-size: 1.5rem; }
             .section-title { font-size: 2rem; }
             .nav-menu { gap: 20px; }
-            .steps { flex-direction: column; gap: 30px; }
-            .steps:before { display: none; }
-            .step { width: 100%; display: flex; align-items: center; gap: 20px; text-align: left; }
-            .form-row { flex-direction: column; }
-            .subscribe-input { width: 100%; }
-            .services { gap: 15px; }
-            .service-card { flex: 0 0 280px; padding: 25px 20px; }
-            .lang-option span { display: none; }
-            .lang-option { padding: 8px; }
-            .nav-container { padding: 0 15px; }
+            .steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .steps::before {
+                display: none;
+            }
+            .step {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                text-align: left;
+            }
+            .form-row {
+                flex-direction: column;
+            }
+            .subscribe-input {
+                width: 100%;
+            }
+            .services {
+                gap: 15px;
+            }
+            .service-card {
+                flex: 0 0 280px;
+                padding: 25px 20px;
+            }
+            .lang-option span {
+                display: none;
+            }
+            .lang-option {
+                padding: 8px;
+            }
+            .nav-container {
+                padding: 0 15px;
+            }
         }
     </style>
 </head>
@@ -491,7 +517,7 @@
             <li><a href="#contact" data-en="Contact" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
         </ul>
         <div class="lang-switch">
-            <div class="lang-option en" data-lang="en">
+            <div class="lang-option en active" data-lang="en">
                 <img src="uk.svg" alt="English" class="flag">
                 <span>English</span>
             </div>
@@ -551,6 +577,11 @@
             <div class="service-icon">💼</div>
             <h3 class="service-title" data-en="Jibli Service" data-fr="Service Jibli" data-ar="خدمة جيبلي">Jibli Service</h3>
             <p class="service-desc" data-en="Personalized follow-up from A to Z by a dedicated expert." data-fr="Suivi personnalisé de A à Z par un expert dédié." data-ar="متابعة شخصية من البداية للنهاية من قبل خبير مخصص">Personalized follow-up from A to Z by a dedicated expert.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🎓</div>
+            <h3 class="service-title" data-en="Training & Support" data-fr="Formation & Support" data-ar="تدريب ودعم">Training & Support</h3>
+            <p class="service-desc" data-en="Learn the art of micro-import with our expert-led training and resources." data-fr="Apprenez l'art de la micro-importation grâce à nos formations dirigées par des experts." data-ar="تعلم فن الاستيراد الصغير مع تدريبنا الذي يقوده الخبراء">Learn the art of micro-import with our expert-led training and resources.</p>
         </div>
     </div>
 
@@ -614,18 +645,54 @@
     <p data-en="Revolutionizing small-scale import with customized logistics." data-fr="Révolutionnons l'importation à petite échelle avec des solutions logistiques adaptées." data-ar="نحو استيراد صغير النطاق بحلول لوجيستية مخصصة">Revolutionizing small-scale import with customized logistics.</p>
 </footer>
 
-<a href="https://wa.me/971582939027?text=Bonjour,%20je%20souhaite%20discuter%20de%20mes%20besoins%20de%20micro-importation"
-    target="_blank"
-    style="position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
+<a href="https://wa.me/971582939027?text=Hello%2C%20I%20would%20like%20to%20discuss%20my%20micro-import%20needs"
+   target="_blank"
+   style="position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px;
+          border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
     <i class="fab fa-whatsapp"></i>
 </a>
 
 <script>
-    // Language management
+    // Language Management
     const langOptions = document.querySelectorAll('.lang-option');
     let currentLang = 'en';
+
+    const placeholders = {
+        en: {
+            name: "Name",
+            phone: "Phone",
+            email: "Email",
+            address: "Address",
+            specialty: "Specialty",
+            budget: "Budget",
+            training: "Desired training"
+        },
+        fr: {
+            name: "Nom",
+            phone: "Téléphone",
+            email: "Email",
+            address: "Adresse",
+            specialty: "Spécialité",
+            budget: "Budget",
+            training: "Formation souhaitée"
+        },
+        ar: {
+            name: "الاسم",
+            phone: "الهاتف",
+            email: "البريد الإلكتروني",
+            address: "العنوان",
+            specialty: "التخصص",
+            budget: "الميزانية",
+            training: "التدريب المطلوب"
+        }
+    };
+
+    const waTexts = {
+        en: 'Hello%2C%20I%20would%20like%20to%20discuss%20my%20micro-import%20needs',
+        fr: 'Bonjour%2C%20je%20souhaite%20discuter%20de%20mes%20besoins%20de%20micro-importation',
+        ar: 'مرحباً%2C%20أرغب%20في%20مناقشة%20احتياجاتي%20لاستيراد%20صغير'
+    };
 
     function updateLanguage() {
         document.querySelectorAll('[data-en]').forEach(el => {
@@ -641,46 +708,18 @@
             }
         });
 
-        if (currentLang === 'ar') {
-            document.querySelector('input[name="name"]').placeholder = "الاسم";
-            document.querySelector('input[name="phone"]').placeholder = "الهاتف";
-            document.querySelector('input[name="email"]').placeholder = "البريد الإلكتروني";
-            document.querySelector('input[name="address"]').placeholder = "العنوان";
-            document.querySelector('input[name="specialty"]').placeholder = "التخصص";
-            document.querySelector('input[name="budget"]').placeholder = "الميزانية";
-            document.querySelector('input[name="training"]').placeholder = "التدريب المطلوب";
-        } else if (currentLang === 'fr') {
-            document.querySelector('input[name="name"]').placeholder = "Nom";
-            document.querySelector('input[name="phone"]').placeholder = "Téléphone";
-            document.querySelector('input[name="email"]').placeholder = "Email";
-            document.querySelector('input[name="address"]').placeholder = "Adresse";
-            document.querySelector('input[name="specialty"]').placeholder = "Spécialité";
-            document.querySelector('input[name="budget"]').placeholder = "Budget";
-            document.querySelector('input[name="training"]').placeholder = "Formation souhaitée";
-        } else {
-            document.querySelector('input[name="name"]').placeholder = "Name";
-            document.querySelector('input[name="phone"]').placeholder = "Phone";
-            document.querySelector('input[name="email"]').placeholder = "Email";
-            document.querySelector('input[name="address"]').placeholder = "Address";
-            document.querySelector('input[name="specialty"]').placeholder = "Specialty";
-            document.querySelector('input[name="budget"]').placeholder = "Budget";
-            document.querySelector('input[name="training"]').placeholder = "Desired training";
-        }
+        Object.keys(placeholders[currentLang]).forEach(key => {
+            const input = document.querySelector(`input[name="${key}"]`);
+            if (input) input.placeholder = placeholders[currentLang][key];
+        });
 
         const waLink = document.querySelector('a[href*="wa.me"]');
-        let waText = 'Hello%2C%20I%20would%20like%20to%20discuss%20my%20micro-import%20needs';
-        if (currentLang === 'fr') {
-            waText = 'Bonjour%2C%20je%20souhaite%20discuter%20de%20mes%20besoins%20de%20micro-importation';
-        } else if (currentLang === 'ar') {
-            waText = 'مرحباً%2C%20أرغب%20في%20مناقشة%20احتياجاتي%20لاستيراد%20صغير';
-        }
-        waLink.href = 'https://wa.me/971582939027?text=' + waText;
+        waLink.href = `https://wa.me/971582939027?text=${waTexts[currentLang]}`;
 
         langOptions.forEach(option => {
+            option.classList.remove('active');
             if (option.dataset.lang === currentLang) {
                 option.classList.add('active');
-            } else {
-                option.classList.remove('active');
             }
         });
     }
@@ -694,7 +733,7 @@
         });
     });
 
-    // New form submission logic to send data to Google Apps Script
+    // Form Submission
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const form = this;
@@ -703,7 +742,6 @@
         document.getElementById('successMessage').style.display = 'none';
         document.getElementById('errorMessage').style.display = 'none';
 
-        // **REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT URL**
         const scriptUrl = 'https://script.google.com/macros/s/AKfycbz5QudNDcEh1kqWinGX-MrbUctkTvv8fyZI1fgA8gVTOnraGQvK006K0Ruh02OL9xyW/exec';
 
         const formData = new FormData(form);
@@ -730,21 +768,47 @@
         .catch(error => {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'block';
-            console.error('Fetch Error:', error);
+            console.error('Error:', error);
         });
     });
 
-    // Smooth navigation
+    // Smooth Scroll with Offset
+    function scrollToSection(targetId) {
+        const target = document.querySelector(targetId);
+        if (target) {
+            const offset = target.offsetTop - 100;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
+            const target = this.getAttribute('href');
+            if (target && target !== '#') {
+                scrollToSection(target);
+                // Update active link
+                document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+    });
+
+    // Update Active Link on Scroll
+    window.addEventListener('scroll', () => {
+        const sections = ['home', 'services', 'about', 'contact'];
+        const scrollPos = window.scrollY + 120;
+
+        sections.forEach(id => {
+            const section = document.getElementById(id);
+            const navLink = document.querySelector(`a[href="#${id}"]`);
+            if (section && navLink) {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                if (scrollPos >= top && scrollPos < bottom) {
+                    document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+                    navLink.classList.add('active');
+                }
             }
         });
     });
